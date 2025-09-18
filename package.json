@@ -1,0 +1,13 @@
+{
+  "name": "praya-v6",
+  "version": "1.0.0",
+  "description": "PRAYA Interactive - Immersive experiences for Seniors, Kids & Corporate",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build step required for static site'",
+    "dev": "echo 'Open index.html in browser'"
+  },
+  "keywords": ["praya", "immersive", "seniors", "kids", "corporate"],
+  "author": "PRAYA Team",
+  "license": "MIT"
+}
