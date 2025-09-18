@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRAYA Interactive - Expériences immersives pour Seniors, Kids & Corporate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        prayaBlue: "#1e3a8a",
+                        prayaIndigo: "#4338ca",
+                        prayaGreen: "#10b981",
+                        prayaRed: "#ef4444"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .video-container {
+            width: 100%;
+            height: 225px;
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: bold;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .language-selector {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 50;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #4338ca 0%, #1e3a8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo-img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        @media (max-width: 768px) {
+            .language-selector {
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+            .logo-img {
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sélecteur de langue -->
+    <div class="language-selector">
+        <button id="lang-fr" class="font-bold text-prayaIndigo">FR</button>
+        <span> | </span>
+        <button id="lang-en" class="text-gray-600">EN</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="logo">
+                        <img src="assets/images/logo.png" alt="PRAYA Logo" class="logo-img">
+                        PRAYA
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.home">Accueil</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.pricing">Tarifs</a>
+                    <a href="#demo" class="text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.demo">Démo</a>
+                    <a href="#references" class="text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.references">Références</a>
+                    <a href="#recruit" class="text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.recruit">Recrutement</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Menu mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white pb-3 px-4">
+            <a href="#home" class="block py-2 text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.home">Accueil</a>
+            <a href="#pricing" class="block py-2 text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.pricing">Tarifs</a>
+            <a href="#demo" class="block py-2 text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.demo">Démo</a>
+            <a href="#references" class="block py-2 text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.references">Références</a>
+            <a href="#recruit" class="block py-2 text-gray-700 hover:text-prayaIndigo nav-link" data-key="nav.recruit">Recrutement</a>
+        </div>
+    </nav>
+
+    <!-- Landing Page Bilingue -->
+    <section id="home" class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-700 text-white py-16 px-4">
+        <div class="text-center max-w-3xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6" data-key="home.title">PRAYA Interactive</h1>
+            <p class="text-xl mb-8" data-key="home.subtitle">Expériences immersives pour Seniors, Kids & Corporate</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#book" class="bg-white text-blue-700 px-6 py-3 rounded-xl font-semibold text-center transition hover:shadow-lg" data-key="home.book">Réserver une démo</a>
+                <a href="#pricing" class="bg-indigo-900 text-white px-6 py-3 rounded-xl font-semibold text-center transition hover:shadow-lg" data-key="home.pricing">Découvrir nos packs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Packs -->
+    <section id="pricing" class="py-16 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-8 text-center" data-key="pricing.title">Nos Packs Tarifaires</h1>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-2xl font-bold" data-key="pricing.starter">Starter</h2>
+                    <p class="text-xl font-semibold my-4">99€/month</p>
+                    <ul class="mt-4 list-disc ml-6 space-y-2">
+                        <li data-key="pricing.starter1">1 démo/mois</li>
+                        <li data-key="pricing.starter2">Support de base</li>
+                    </ul>
+                    <a href="#book" class="mt-6 inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl w-full text-center transition hover:bg-indigo-700" data-key="pricing.choose">Choisir</a>
+                </div>
+                
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition relative">
+                    <span class="absolute -top-3 left-4 text-sm bg-yellow-300 text-black px-2 py-1 rounded" data-key="pricing.popular">Le Plus Populaire</span>
+                    <h2 class="text-2xl font-bold" data-key="pricing.pro">Pro</h2>
+                    <p class="text-xl font-semibold my-4">249€/month</p>
+                    <ul class="mt-4 list-disc ml-6 space-y-2">
+                        <li data-key="pricing.pro1">4 démos/mois</li>
+                        <li data-key="pricing.pro2">Support prioritaire</li>
+                        <li data-key="pricing.pro3">Personnalisation de la marque</li>
+                    </ul>
+                    <a href="#book" class="mt-6 inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl w-full text-center transition hover:bg-indigo-700" data-key="pricing.choose">Choisir</a>
+                </div>
+                
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-2xl font-bold" data-key="pricing.network">Network</h2>
+                    <p class="text-xl font-semibold my-4">499€/month</p>
+                    <ul class="mt-4 list-disc ml-6 space-y-2">
+                        <li data-key="pricing.network1">10 démos/mois</li>
+                        <li data-key="pricing.network2">Account manager dédié</li>
+                        <li data-key="pricing.network3">API d'intégration</li>
+                    </ul>
+                    <a href="#book" class="mt-6 inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl w-full text-center transition hover:bg-indigo-700" data-key="pricing.choose">Choisir</a>
+                </div>
+                
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-2xl font-bold" data-key="pricing.seniors">Seniors 90+</h2>
+                    <p class="text-xl font-semibold my-4">149€/month</p>
+                    <ul class="mt-4 list-disc ml-6 space-y-2">
+                        <li data-key="pricing.seniors1">2 démos/mois</li>
+                        <li data-key="pricing.seniors2">Contenu spécial seniors</li>
+                        <li data-key="pricing.seniors3">Accès famille</li>
+                    </ul>
+                    <a href="#book" class="mt-6 inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl w-full text-center transition hover:bg-indigo-700" data-key="pricing.choose">Choisir</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Page -->
+    <section id="book" class="py-16 px-4 bg-gray-100">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-8 text-center" data-key="booking.title">Réservez Votre Démo</h1>
+            <div class="bg-white p-8 rounded-xl shadow-md">
+                <div class="bg-gray-200 p-8 text-center rounded-lg">
+                    <p class="text-lg font-semibold" data-key="booking.calendar">Intégration Calendly</p>
+                    <p class="text-sm text-gray-600 mt-2" data-key="booking.note">(Un formulaire de réservation sera intégré ici)</p>
+                </div>
+                <div class="text-center mt-8">
+                    <button onclick="confirmBooking()" class="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold transition hover:bg-green-700" data-key="booking.confirm">
+                        Confirmer la réservation
+                    </button>
+                </div>
+                <div id="confirmation-message" class="hidden text-center mt-6">
+                    <p class="text-xl text-green-700 font-semibold" data-key="booking.success">Votre démo est confirmée! Un email de confirmation a été envoyé.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Page -->
+    <section id="demo" class="py-16 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-8 text-center" data-key="demo.title">Explorez Nos Démonstrations</h1>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-2xl font-bold mb-4" data-key="demo.seniors">Seniors</h2>
+                    <div class="video-container">
+                        <video controls poster="assets/images/placeholder.jpg">
+                            <source src="assets/videos/seniors-demo.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+                
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-2xl font-bold mb-4" data-key="demo.kids">Kids</h2>
+                    <div class="video-container">
+                        <video controls poster="assets/images/placeholder.jpg">
+                            <source src="assets/videos/kids-demo.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+                
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-2xl font-bold mb-4" data-key="demo.corporate">Corporate</h2>
+                    <div class="video-container">
+                        <video controls poster="assets/images/placeholder.jpg">
+                            <source src="assets/videos/corporate-demo.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+                
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-2xl font-bold mb-4" data-key="demo.seniors90">Seniors 90+</h2>
+                    <div class="video-container">
+                        <video controls poster="assets/images/placeholder.jpg">
+                            <source src="assets/videos/seniors90plus-demo.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- References Page -->
+    <section id="references" class="py-16 px-4 bg-gray-100">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-8 text-center" data-key="references.title">Nos Références</h1>
+            <div class="grid gap-6 md:grid-cols-3">
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-xl font-semibold" data-key="references.homeA">Maison de Retraite A</h2>
+                    <p class="mt-4" data-key="references.text1">"PRAYA a apporté joie et nouvelle vie à nos résidents!"</p>
+                </div>
+                
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-xl font-semibold" data-key="references.collegeB">Collège B</h2>
+                    <p class="mt-4" data-key="references.text2">"Nos étudiants ont adoré les modules éducatifs immersifs."</p>
+                </div>
+                
+                <div class="border rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition">
+                    <h2 class="text-xl font-semibold" data-key="references.companyC">Entreprise C</h2>
+                    <p class="mt-4" data-key="references.text3">"Idéal pour le team building et la gestion du stress."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recruitment Page -->
+    <section id="recruit" class="py-16 px-4 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-8 text-center" data-key="recruit.title">Rejoignez PRAYA en tant que Partenaire ou Animateur</h1>
+            <div class="bg-white p-8 rounded-xl shadow-md">
+                <form id="recruitment-form" class="space-y-4">
+                    <input type="text" placeholder="Nom Complet" class="w-full border rounded p-3" required data-key="recruit.name">
+                    <input type="email" placeholder="Email" class="w-full border rounded p-3" required data-key="recruit.email">
+                    <input type="url" placeholder="Lien LinkedIn ou CV" class="w-full border rounded p-3" data-key="recruit.link">
+                    <textarea placeholder="Pourquoi voulez-vous rejoindre PRAYA?" class="w-full border rounded p-3" rows="4" data-key="recruit.message"></textarea>
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl w-full transition hover:bg-blue-700" data-key="recruit.submit">Soumettre la candidature</button>
+                </form>
+                <div id="recruitment-success" class="hidden text-center mt-6">
+                    <p class="text-green-700 text-xl font-semibold" data-key="recruit.success">Merci pour votre candidature! Nous vous contacterons bientôt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4 logo">
+                    <img src="assets/images/logo.png" alt="PRAYA Logo" class="logo-img">
+                    PRAYA
+                </h3>
+                <p data-key="footer.tagline">Expériences immersives pour Seniors, Kids & Corporate</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4" data-key="footer.links">Liens Rapides</h3>
+                <ul class="space-y-2">
+                    <li><a href="#home" class="hover:underline nav-link" data-key="nav.home">Accueil</a></li>
+                    <li><a href="#pricing" class="hover:underline nav-link" data-key="nav.pricing">Tarifs</a></li>
+                    <li><a href="#demo" class="hover:underline nav-link" data-key="nav.demo">Démo</a></li>
+                    <li><a href="#references" class="hover:underline nav-link" data-key="nav.references">Références</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4" data-key="footer.contact">Contact</h3>
+                <p>Email: info@praya.fr</p>
+                <p data-key="footer.phone">Tél: +33 1 23 45 67 89</p>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto mt-8 pt-8 border-t border-gray-700 text-center">
+            <p>&copy; 2023 PRAYA Interactive. <span data-key="footer.rights">Tous droits réservés</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Textes multilingues
+        const translations = {
+            fr: {
+                'nav.home': 'Accueil',
+                'nav.pricing': 'Tarifs',
+                'nav.demo': 'Démo',
+                'nav.references': 'Références',
+                'nav.recruit': 'Recrutement',
+                'home.title': 'PRAYA Interactive',
+                'home.subtitle': 'Expériences immersives pour Seniors, Kids & Corporate',
+                'home.book': 'Réserver une démo',
+                'home.pricing': 'Découvrir nos packs',
+                'pricing.title': 'Nos Packs Tarifaires',
+                'pricing.starter': 'Starter',
+                'pricing.starter1': '1 démo/mois',
+                'pricing.starter2': 'Support de base',
+                'pricing.pro': 'Pro',
+                'pricing.pro1': '4 démos/mois',
+                'pricing.pro2': 'Support prioritaire',
+                'pricing.pro3': 'Personnalisation de la marque',
+                'pricing.network': 'Network',
+                'pricing.network1': '10 démos/mois',
+                'pricing.network2': 'Account manager dédié',
+                'pricing.network3': 'API d\'intégration',
+                'pricing.seniors': 'Seniors 90+',
+                'pricing.seniors1': '2 démos/mois',
+                'pricing.seniors2': 'Contenu spécial seniors',
+                'pricing.seniors3': 'Accès famille',
+                'pricing.choose': 'Choisir',
+                'pricing.popular': 'Le Plus Populaire',
+                'booking.title': 'Réservez Votre Démo',
+                'booking.calendar': 'Intégration Calendly',
+                'booking.note': '(Un formulaire de réservation sera intégré ici)',
+                'booking.confirm': 'Confirmer la réservation',
+                'booking.success': 'Votre démo est confirmée! Un email de confirmation a été envoyé.',
+                'demo.title': 'Explorez Nos Démonstrations',
+                'demo.seniors': 'Seniors',
+                'demo.kids': 'Kids',
+                'demo.corporate': 'Corporate',
+                'demo.seniors90': 'Seniors 90+',
+                'references.title': 'Nos Références',
+                'references.homeA': 'Maison de Retraite A',
+                'references.text1': '"PRAYA a apporté joie et nouvelle vie à nos résidents!"',
+                'references.collegeB': 'Collège B',
+                'references.text2': '"Nos étudiants ont adoré les modules éducatifs immersifs."',
+                'references.companyC': 'Entreprise C',
+                'references.text3': '"Idéal pour le team building et la gestion du stress."',
+                'recruit.title': 'Rejoignez PRAYA en tant que Partenaire ou Animateur',
+                'recruit.name': 'Nom Complet',
+                'recruit.email': 'Email',
+                'recruit.link': 'Lien LinkedIn ou CV',
+                'recruit.message': 'Pourquoi voulez-vous rejoindre PRAYA?',
+                'recruit.submit': 'Soumettre la candidature',
+                'recruit.success': 'Merci pour votre candidature! Nous vous contacterons bientôt.',
+                'footer.tagline': 'Expériences immersives pour Seniors, Kids & Corporate',
+                'footer.links': 'Liens Rapides',
+                'footer.contact': 'Contact',
+                'footer.phone': 'Tél: +33 1 23 45 67 89',
+                'footer.rights': 'Tous droits réservés'
+            },
+            en: {
+                'nav.home': 'Home',
+                'nav.pricing': 'Pricing',
+                'nav.demo': 'Demo',
+                'nav.references': 'References',
+                'nav.recruit': 'Recruitment',
+                'home.title': 'PRAYA Interactive',
+                'home.subtitle': 'Immersive experiences for Seniors, Kids & Corporate',
+                'home.book': 'Book a demo',
+                'home.pricing': 'See our packs',
+                'pricing.title': 'Our Pricing Packs',
+                'pricing.starter': 'Starter',
+                'pricing.starter1': '1 demo/month',
+                'pricing.starter2': 'Basic support',
+                'pricing.pro': 'Pro',
+                'pricing.pro1': '4 demos/month',
+                'pricing.pro2': 'Priority support',
+                'pricing.pro3': 'Custom branding',
+                'pricing.network': 'Network',
+                'pricing.network1': '10 demos/month',
+                'pricing.network2': 'Dedicated account manager',
+                'pricing.network3': 'Integration API',
+                'pricing.seniors': 'Seniors 90+',
+                'pricing.seniors1': '2 demos/month',
+                'pricing.seniors2': 'Special senior content',
+                'pricing.seniors3': 'Family access',
+                'pricing.choose': 'Choose',
+                'pricing.popular': 'Most Popular',
+                'booking.title': 'Book Your Demo',
+                'booking.calendar': 'Calendly Integration',
+                'booking.note': '(A booking form will be integrated here)',
+                'booking.confirm': 'Confirm Booking',
+                'booking.success': 'Your demo is confirmed! A confirmation email has been sent.',
+                'demo.title': 'Explore Our Demos',
+                'demo.seniors': 'Seniors',
+                'demo.kids': 'Kids',
+                'demo.corporate': 'Corporate',
+                'demo.seniors90': 'Seniors 90+',
+                'references.title': 'Our References',
+                'references.homeA': 'Retirement Home A',
+                'references.text1': '"PRAYA brought joy and new life to our residents!"',
+                'references.collegeB': 'College B',
+                'references.text2': '"Our students loved the immersive educational modules."',
+                'references.companyC': 'Company C',
+                'references.text3': '"Great for team building and stress relief."',
+                'recruit.title': 'Join PRAYA as a Partner or Animator',
+                'recruit.name': 'Full Name',
+                'recruit.email': 'Email',
+                'recruit.link': 'LinkedIn or CV Link',
+                'recruit.message': 'Why do you want to join PRAYA?',
+                'recruit.submit': 'Submit Application',
+                'recruit.success': 'Thank you for applying! We will contact you soon.',
+                'footer.tagline': 'Immersive experiences for Seniors, Kids & Corporate',
+                'footer.links': 'Quick Links',
+                'footer.contact': 'Contact',
+                'footer.phone': 'Phone: +33 1 23 45 67 89',
+                'footer.rights': 'All rights reserved'
+            }
+        };
+
+        // Fonction pour changer la langue
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    if (element.placeholder) {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Mettre à jour les boutons de langue
+            document.getElementById('lang-fr').classList.toggle('text-prayaIndigo', lang === 'fr');
+            document.getElementById('lang-fr').classList.toggle('font-bold', lang === 'fr');
+            document.getElementById('lang-fr').classList.toggle('text-gray-600', lang !== 'fr');
+            
+            document.getElementById('lang-en').classList.toggle('text-prayaIndigo', lang === 'en');
+            document.getElementById('lang-en').classList.toggle('font-bold', lang === 'en');
+            document.getElementById('lang-en').classList.toggle('text-gray-600', lang !== 'en');
+            
+            // Changer l'attribut lang de l'élément html
+            document.documentElement.lang = lang;
+            
+            // Sauvegarder la préférence de langue
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Fonction pour confirmer la réservation
+        function confirmBooking() {
+            document.getElementById('confirmation-message').classList.remove('hidden');
+        }
+
+        // Gestion du formulaire de recrutement
+        document.getElementById('recruitment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('recruitment-success').classList.remove('hidden');
+            this.reset();
+        });
+
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Fermer le menu mobile si ouvert
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Menu mobile
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Charger la langue préférée ou utiliser le français par défaut
+            const preferredLanguage = localStorage.getItem('preferredLanguage') || 'fr';
+            changeLanguage(preferredLanguage);
+            
+            // Écouteurs pour les boutons de langue
+            document.getElementById('lang-fr').addEventListener('click', () => changeLanguage('fr'));
+            document.getElementById('lang-en').addEventListener('click', () => changeLanguage('en'));
+        });
+    </script>
+</body>
+</html>
