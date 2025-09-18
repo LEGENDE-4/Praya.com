@@ -1,0 +1,15 @@
+praya-v6/
+├── index.html
+├── netlify.toml
+├── package.json
+├── assets/
+│   ├── images/
+│   │   ├── logo.png
+│   │   ├── placeholder.jpg
+│   │   └── favicon.ico
+│   └── videos/
+│       ├── seniors-demo.mp4
+│       ├── kids-demo.mp4
+│       ├── corporate-demo.mp4
+│       └── seniors90plus-demo.mp4
+└── README.md
